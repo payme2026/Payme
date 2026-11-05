@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Payme Demo UI</title>
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 16px;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00b9e0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: linear-gradient(135deg, #00b9e0 0%, #0098b8 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0, 185, 224, 0.2);
+            margin-bottom: 20px;
+        }
+        .card-type { font-size: 12px; opacity: 0.8; text-transform: uppercase; }
+        .card-balance { font-size: 24px; font-weight: 700; margin: 10px 0; }
+        .card-number { font-size: 16px; letter-spacing: 2px; }
+        .form-group {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        label { font-size: 11px; color: #888; font-weight: 600; display: block; margin-bottom: 6px; }
+        input {
+            width: 100%; padding: 12px; margin-bottom: 16px;
+            border: 1px solid #e2e8f0; border-radius: 10px;
+            font-size: 16px; box-sizing: border-box; background-color: #f8fafc;
+        }
+        .pay-btn {
+            background-color: #00b9e0; color: white; border: none;
+            width: 100%; padding: 16px; border-radius: 12px;
+            font-size: 16px; font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Payme Mini App</div>
+    <div class="card">
+        <div class="card-type">Uzcard / Демо-баланс</div>
+        <div class="card-balance">500 000 сум</div>
+        <div class="card-number">8600 1111 2222 3333</div>
+    </div>
+    <div class="form-group">
+        <label>НОМЕР КАРТЫ ПОЛУЧАТЕЛЯ</label>
+        <input type="tel" id="toCard" placeholder="9860 •••• •••• ••••" value="9860444455556666">
+        <label>СУММА ПЕРЕВОДА (СУМ)</label>
+        <input type="number" id="amount" value="50000">
+        <button class="pay-btn" onclick="sendPay()">Перевести</button>
+    </div>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        function sendPay() {
+            const data = {
+                to_card: document.getElementById('toCard').value,
+                amount: document.getElementById('amount').value
+            };
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
